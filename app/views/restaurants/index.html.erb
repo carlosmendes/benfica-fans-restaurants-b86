@@ -1,0 +1,26 @@
+<h1>Benfica fans restaurants (<%= @number_of_restaurants %>)</h1>
+<p>Updated at <%= Date.today %></p>
+
+<p>Search by category</p>
+<!-- action in the form needs to be a url available by the app -->
+<form action="/restaurants" method="get">
+  <!-- food_type is going to be a key inside of the hash params -->
+  <input type="text" name="food_type" placeholder="What kind of food?">
+  <input type="submit">
+</form>
+<ul>
+  <% @restaurants.each_with_index do |restaurant, index| %>
+    <li><%= link_to restaurant[:name], restaurant_path(index + 1) %> (<%= restaurant[:category] %>)</li>
+  <% end %>
+</ul>
+
+
+<p>Create a new restaurant</p>
+
+<form action="/restaurants" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="text" name="name" placeholder="Name">
+  <input type="text" name="address" placeholder="Address">
+  <input type="text" name="category" placeholder="Category">
+  <input type="submit">
+</form>
